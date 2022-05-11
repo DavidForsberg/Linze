@@ -1,0 +1,10 @@
+client/.netlify
+client/.next
+client/node_modules
+client/.env.local
+server/node_modules
+server/dist
+server/.env
+server/.env.production
+server/ormconfig.json
+server/.devcontainer
