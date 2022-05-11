@@ -1,13 +1,12 @@
 import type { NextPage } from "next";
 import { withUrqlClient } from "next-urql";
 import Head from "next/head";
-import Layout from "../components/layout";
-import { useMeQuery, usePostsQuery } from "../src/generated/graphql";
-import { createUrqlClient } from "../utils/createUrqlClient";
 import Link from "next/link";
 import { useState } from "react";
-import Image from "next/image";
+import Layout from "../components/layout";
 import UpdootSection from "../components/UpdootSection";
+import { useMeQuery, usePostsQuery } from "../src/generated/graphql";
+import { createUrqlClient } from "../utils/createUrqlClient";
 
 const Home: NextPage = () => {
   const [variables, setVariables] = useState({
