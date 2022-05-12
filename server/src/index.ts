@@ -17,7 +17,7 @@ import { createUpdootLoader } from "./utils/createUpdootLoader";
 
 const main = async () => {
   await conn.initialize();
-  // await conn.runMigrations();
+  await conn.runMigrations();
 
   const app = express();
 

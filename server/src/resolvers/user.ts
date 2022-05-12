@@ -4,13 +4,15 @@ import {
   Ctx,
   Field,
   FieldResolver,
+  InputType,
   Mutation,
   ObjectType,
   Query,
   Resolver,
   Root,
+  UseMiddleware,
 } from "type-graphql";
-import { User } from "../entities/User";
+import { Gender, User } from "../entities/User";
 import argon2 from "argon2";
 import { COOKIE_NAME, FORGET_PASSWORD_PREFIX } from "../constants";
 import { UsernamePasswordInput } from "./UsernamePasswordInput";
@@ -18,6 +20,7 @@ import { validateRegister } from "../utils/validateRegister";
 import { sendEmail } from "../utils/sendEmail";
 import { v4 } from "uuid";
 import { conn } from "../typeorm-config";
+import { isAuth } from "../middleware/isAuth";
 
 @ObjectType()
 class FieldError {
@@ -36,6 +39,16 @@ class UserResponse {
   user?: User;
 }
 
+@InputType()
+class FullUserInput {
+  @Field()
+  gender?: Gender;
+  @Field()
+  age?: Date;
+  @Field()
+  country?: string;
+}
+
 @Resolver(User)
 export class UserResolver {
   @FieldResolver(() => String)
@@ -44,7 +57,7 @@ export class UserResolver {
     if (req.session.userId === user.id) {
       return user.email;
     }
-    // Current user wants to see someone elses emaiö
+    // Current user wants to see someone elses email
     return "";
   }
 
@@ -127,10 +140,10 @@ export class UserResolver {
     ); // 3 days experation
 
     console.log("email sent!");
-    await sendEmail(
-      email,
-      `<a href="${process.env.CORS_ORIGIN}/change-password/${token}">reset password</a>`
-    );
+    // await sendEmail(
+    //   email,
+    //   `<a href="${process.env.CORS_ORIGIN}/change-password/${token}">reset password</a>`
+    // );
 
     return true;
   }
@@ -248,5 +261,41 @@ export class UserResolver {
         resolve(true);
       })
     );
+  }
+
+  @Mutation(() => UserResponse)
+  @UseMiddleware(isAuth)
+  async completeProfile(
+    @Arg("options") options: FullUserInput,
+    @Ctx() { req }: MyContext
+  ): Promise<UserResponse> {
+    const userId = req.session.userId;
+
+    let user = await User.findOne({ where: { id: userId } });
+
+    if (!user) {
+      return {
+        errors: [
+          {
+            field: "user",
+            message: "Could not find user",
+          },
+        ],
+      };
+    }
+
+    await User.update({ id: userId }, { ...options });
+
+    return { user };
+  }
+
+  @Query(() => User)
+  @UseMiddleware(isAuth)
+  async getProfile(@Ctx() { req }: MyContext): Promise<User | null> {
+    if (!req.session.userId) {
+      return null;
+    }
+
+    return User.findOne({ where: { id: req.session.userId } });
   }
 }

@@ -1,0 +1,10 @@
+query GetProfile {
+  getProfile {
+    id
+    username
+    gender
+    age
+    country
+    created_at
+  }
+}

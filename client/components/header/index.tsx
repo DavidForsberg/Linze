@@ -35,15 +35,18 @@ const Header = () => {
     // user is logged in
   } else {
     body = (
-      <button
-        onClick={async () => {
-          await logout();
-          router.reload();
-        }}
-        className="md:ml-8 md:pt-0 pt-4"
-      >
-        Logout
-      </button>
+      <div className="flex">
+        <Button link={`/users/${data.me.id}`} text="profile" />
+        <button
+          onClick={async () => {
+            await logout();
+            router.reload();
+          }}
+          className="md:ml-8 md:pt-0 pt-4"
+        >
+          Logout
+        </button>
+      </div>
     );
   }
 

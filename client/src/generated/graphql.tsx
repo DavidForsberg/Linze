@@ -13,6 +13,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
+  DateTime: any;
 };
 
 export type FieldError = {
@@ -21,9 +23,16 @@ export type FieldError = {
   message: Scalars['String'];
 };
 
+export type FullUserInput = {
+  age: Scalars['DateTime'];
+  country: Scalars['String'];
+  gender: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   changePassword: UserResponse;
+  completeProfile: UserResponse;
   createPost: Post;
   deletePost: Scalars['Boolean'];
   forgotPassword: Scalars['Boolean'];
@@ -38,6 +47,11 @@ export type Mutation = {
 export type MutationChangePasswordArgs = {
   newPassword: Scalars['String'];
   token: Scalars['String'];
+};
+
+
+export type MutationCompleteProfileArgs = {
+  options: FullUserInput;
 };
 
 
@@ -106,6 +120,7 @@ export type PostInput = {
 
 export type Query = {
   __typename?: 'Query';
+  getProfile: User;
   hello: Scalars['String'];
   me?: Maybe<User>;
   post?: Maybe<Post>;
@@ -125,8 +140,11 @@ export type QueryPostsArgs = {
 
 export type User = {
   __typename?: 'User';
+  age?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
   created_at: Scalars['String'];
   email: Scalars['String'];
+  gender?: Maybe<Scalars['String']>;
   id: Scalars['Float'];
   updated_at: Scalars['String'];
   username: Scalars['String'];
@@ -217,6 +235,11 @@ export type VoteMutationVariables = Exact<{
 
 
 export type VoteMutation = { __typename?: 'Mutation', vote: boolean };
+
+export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetProfileQuery = { __typename?: 'Query', getProfile: { __typename?: 'User', id: number, username: string, gender?: string | null, age?: string | null, country?: string | null, created_at: string } };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -375,6 +398,22 @@ export const VoteDocument = gql`
 
 export function useVoteMutation() {
   return Urql.useMutation<VoteMutation, VoteMutationVariables>(VoteDocument);
+};
+export const GetProfileDocument = gql`
+    query GetProfile {
+  getProfile {
+    id
+    username
+    gender
+    age
+    country
+    created_at
+  }
+}
+    `;
+
+export function useGetProfileQuery(options?: Omit<Urql.UseQueryArgs<GetProfileQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetProfileQuery>({ query: GetProfileDocument, ...options });
 };
 export const MeDocument = gql`
     query Me {

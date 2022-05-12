@@ -11,6 +11,12 @@ import {
 import { Post } from "./Post";
 import { Updoot } from "./Updoot";
 
+export enum Gender {
+  male = "MALE",
+  female = "FEMALE",
+  other = "OTHER",
+}
+
 @ObjectType()
 @Entity()
 export class User extends BaseEntity {
@@ -34,6 +40,18 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Updoot, (updoot) => updoot.user)
   updoots: Updoot[];
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  gender: Gender;
+
+  @Field(() => String, { nullable: true })
+  @Column({ nullable: true })
+  age: Date;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true, length: 2 })
+  country: string;
 
   @Field(() => String)
   @CreateDateColumn()
