@@ -4,7 +4,7 @@ import Layout from "../../components/layout";
 import { useGetProfileQuery } from "../../src/generated/graphql";
 import { createUrqlClient } from "../../utils/createUrqlClient";
 
-const Profile = () => {
+const User = () => {
   const [{ data, fetching }] = useGetProfileQuery();
   const [formattedDate, formatDate] = useState("");
 
@@ -43,4 +43,4 @@ const Profile = () => {
   );
 };
 
-export default withUrqlClient(createUrqlClient)(Profile);
+export default withUrqlClient(createUrqlClient)(User);

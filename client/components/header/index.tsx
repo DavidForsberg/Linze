@@ -1,12 +1,9 @@
-import { link } from 'fs';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useLogoutMutation, useMeQuery } from '../../src/generated/graphql';
-import { isServer } from '../../utils/isServer';
-import React, { useState } from 'react';
-import Login from '../../pages/login';
-import Button from '../formui/button';
-import Search from './search';
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useLogoutMutation, useMeQuery } from "../../src/generated/graphql";
+import { isServer } from "../../utils/isServer";
+import React, { useState } from "react";
+import Button from "../formui/button";
 
 const Links = [
   { name: 'Discover', url: '/discover' },
