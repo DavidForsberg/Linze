@@ -1,38 +1,46 @@
-import { userInfo } from "os";
-import Users from "../users";
-
-const tempprofile = [
-  { Username: "David", Image: "", Bio: "#maneshairline #Kevindanell" },
-];
+import { withUrqlClient } from "next-urql";
+import { useEffect, useState } from "react";
+import Layout from "../../components/layout";
+import { useGetProfileQuery } from "../../src/generated/graphql";
+import { createUrqlClient } from "../../utils/createUrqlClient";
 
 const Profile = () => {
+  const [{ data, fetching }] = useGetProfileQuery();
+  const [formattedDate, formatDate] = useState("");
+
+  useEffect(() => {
+    if (data?.getProfile.created_at) {
+      const date: string = new Date(
+        parseInt(data.getProfile.created_at)
+      ).toLocaleDateString("en-US");
+      formatDate(date);
+    }
+  }, [data]);
+
+  if (fetching) {
+    return (
+      <Layout>
+        <p>loading...</p>
+      </Layout>
+    );
+  }
+
+  if (!data) {
+    return (
+      <Layout>
+        <h1>Could not find user</h1>
+      </Layout>
+    );
+  }
+
   return (
-    <div className="flex items-center justify-center rounded w-11/12 text-primary border-2 py-36 px-12">
-      {/* Profile wrapper*/}
-      <div className="w-3/5 bg-bg rounded-tl-2xl rounded-bl-2xl justify-between">
-        {/* Övredel */}
-        <div>
-          <img
-            src="/images/twitter.png"
-            alt=""
-            width={60}
-            height={60}
-            className="rounded-2xl border-2"
-          />
-        </div>
-        {/* Vänstra Överdel */}
-        <div className="w-2/5 h-full  ">
-          {/* Högra Överdel */}
-          <div>Bio</div>
-        </div>
+    <Layout>
+      <div>
+        <h1 className="text-3xl">{data.getProfile.username}</h1>
+        <p>Created account on {formattedDate}</p>
       </div>
-      <div className="w-2/5 p-5 bg-alternative rounded-tr-2xl rounded-br-2xl">
-        {/* Nedredel */}
-        <div>Username</div>
-        <div>Recent post</div>
-      </div>
-    </div>
+    </Layout>
   );
 };
 
-export default Profile;
+export default withUrqlClient(createUrqlClient)(Profile);

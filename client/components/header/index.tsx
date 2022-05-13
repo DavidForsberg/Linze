@@ -1,12 +1,9 @@
-import { link } from "fs";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useLogoutMutation, useMeQuery } from "../../src/generated/graphql";
 import { isServer } from "../../utils/isServer";
 import React, { useState } from "react";
-import Login from "../../pages/login";
 import Button from "../formui/button";
-import Search from "./search";
 
 const Links = [
   { name: "Discover", url: "/discover" },
@@ -36,7 +33,7 @@ const Header = () => {
   } else {
     body = (
       <div className="flex">
-        <Button link={`/users/${data.me.id}`} text="profile" />
+        <Button link={`/profile`} text="profile" />
         <button
           onClick={async () => {
             await logout();
@@ -50,25 +47,6 @@ const Header = () => {
     );
   }
 
-  // return (
-  //   <header className="flex w-screen justify-center items-center fixed text-primary">
-  //     <div className="w-11/12 border-b-2 flex justify-between">
-  //       <Link href="/">
-  //         <a className="text-3xl py-10 cursor-pointer">Linze</a>
-  //       </Link>
-  //       <Search />
-  //       <nav className="flex items-center">
-  //         {links.map((link) => {
-  //           return (
-  //             <Link key={link.id} href={link.url}>
-  //               <a className="hover:text-alternative duration-500 cursor-pointer text-2xl p-10 mr-1">
-  //                 {link.text}
-  //               </a>
-  //             </Link>
-  //           );
-  //         })}
-  //         {body}
-  //       </nav>
   let [open, setOpen] = useState(false);
   return (
     <div className="shadow-md w-full fixed top-0 left-0 text-primary bg-bg md:pb-0 pb-4">
