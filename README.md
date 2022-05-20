@@ -17,12 +17,6 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-## David  
-[![LinkedIn][linkedin-shield]][linkedin-url]  
-## Brian  
-[![LinkedIn][linkedin-shield]][linkedin-url2]
-
-
 <br />
 
 
@@ -77,10 +71,8 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
+## About The Project  
+   
 Linze is a Social media platform with gaming in focus where users can upload view or interact with content within the community. The platform also outsource content from other websites such as youtube, twitch and twitter and gather everything into a feed. 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -123,10 +115,11 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <!-- CONTACT -->
 ## Contact
-
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
-
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
+  
+## David  
+[![LinkedIn][linkedin-shield]][linkedin-url]  
+## Brian  
+[![LinkedIn][linkedin-shield]][linkedin-url2]
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
