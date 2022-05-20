@@ -83,7 +83,7 @@ Linze is a Social media platform with gaming in focus where users can upload vie
 
 * [Next.js](https://nextjs.org/)
 * [Typescript.js](https://www.typescriptlang.org/)
-* [Tailwind CSS](httpsYou can interact with others by com/)
+* [Tailwind CSS](https://tailwindcss.com/)
 * [postgreSQL](https://www.postgresql.org/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
