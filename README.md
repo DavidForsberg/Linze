@@ -82,8 +82,8 @@ Linze is a Social media platform with gaming in focus where users can upload vie
 ### Built With
 
 * [Next.js](https://nextjs.org/)
-* [React.js](https://reactjs.org/)
-* [Tailwind CSS](https://tailwindcss.com/)
+* [Typescript.js](https://www.typescriptlang.org/)
+* [Tailwind CSS](httpsYou can interact with others by com/)
 * [postgreSQL](https://www.postgresql.org/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -96,7 +96,7 @@ Linze is a Social media platform with gaming in focus where users can upload vie
 First of all you have to sign up either by googles own authenticator or by email<br/>
 Then you're all set.<br/>
 Setup your profile and personalize it<br/>
-
+You can interact with others by reading posts or creating your own. The option to rate posts is also available. 
 
 
 
